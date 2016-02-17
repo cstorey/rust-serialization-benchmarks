@@ -10,6 +10,7 @@ extern crate serde;
 extern crate serde_json;
 extern crate rustc_serialize;
 extern crate test;
+extern crate spki_sexp;
 
 pub mod goser;
 

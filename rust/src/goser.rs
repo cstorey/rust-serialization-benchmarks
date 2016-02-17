@@ -1416,3 +1416,45 @@ mod bincode {
         });
     }
 }
+
+#[cfg(test)]
+mod serde_sexp {
+    use test::{self, Bencher};
+
+    use spki_sexp;
+
+    use super::Log;
+
+    #[bench]
+    fn bench_populate(b: &mut Bencher) {
+        b.iter(|| {
+            Log::new()
+        });
+    }
+
+    #[bench]
+    fn bench_serializer(b: &mut Bencher) {
+        let log = Log::new();
+        let bytes = spki_sexp::as_bytes(&log);
+        b.bytes = bytes.len() as u64;
+
+        b.iter(|| {
+            let bytes = spki_sexp::as_bytes(&log);
+            test::black_box(&bytes);
+        });
+    }
+
+    #[bench]
+    fn bench_deserializer(b: &mut Bencher) {
+        let log = Log::new();
+        let bytes = spki_sexp::as_bytes(&log);
+        b.bytes = bytes.len() as u64;
+
+        // println!("Log: {:?}", String::from_utf8_lossy(&bytes));
+
+        b.iter(|| {
+            let log: Log = spki_sexp::from_bytes(&bytes).unwrap();
+            log
+        });
+    }
+}
