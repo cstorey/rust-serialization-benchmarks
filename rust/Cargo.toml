@@ -5,18 +5,18 @@ authors = ["erick.tryzelaar@gmail.com"]
 build = "build.rs"
 
 [build-dependencies]
-capnpc = "*"
+capnpc = "0.6.0"
 
 [dependencies]
-bincode = "*"
-capnp = "*"
-num = "*"
-rustc-serialize = "*"
-rmp = "*"
+bincode = "0.4.0"
+capnp = "0.6.2"
+num = "0.1.31"
+rustc-serialize = "0.3.18"
+rmp = "0.6.0"
 #protobuf = "*"
-serde = "*"
-serde_json = "*"
-serde_macros = "*"
+serde = "0.6.13"
+serde_json = "0.6.0*"
+serde_macros = "0.6.13"
 
 [dependencies.protobuf]
 git = "https://github.com/stepancheg/rust-protobuf"
