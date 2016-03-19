@@ -1435,11 +1435,13 @@ mod serde_sexp {
     #[bench]
     fn bench_serializer(b: &mut Bencher) {
         let log = Log::new();
-        let bytes = spki_sexp::as_bytes(&log);
+        let mut bytes = Vec::new();
+        spki_sexp::to_writer(&mut bytes, &log).unwrap();
         b.bytes = bytes.len() as u64;
 
         b.iter(|| {
-            let bytes = spki_sexp::as_bytes(&log);
+            bytes.clear();
+            let bytes = spki_sexp::to_writer(&mut bytes, &log);
             test::black_box(&bytes);
         });
     }
@@ -1447,7 +1449,7 @@ mod serde_sexp {
     #[bench]
     fn bench_deserializer(b: &mut Bencher) {
         let log = Log::new();
-        let bytes = spki_sexp::as_bytes(&log);
+        let bytes = spki_sexp::as_bytes(&log).unwrap();
         b.bytes = bytes.len() as u64;
 
         // println!("Log: {:?}", String::from_utf8_lossy(&bytes));
