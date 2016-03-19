@@ -21,3 +21,9 @@ spki-sexp = { path = "/home/ceri/personal/spki-sexp.rs" }
 
 [dependencies.protobuf]
 git = "https://github.com/stepancheg/rust-protobuf"
+
+[profile.release]
+debug = true
+[profile.bench]
+debug = true
+codegen-units = 4
